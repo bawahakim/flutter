@@ -407,8 +407,7 @@ class CameraController extends ValueNotifier<CameraValue> {
   /// have significant frame rate drops for [CameraPreview] on lower end
   /// devices.
   ///
-  /// Throws a [CameraException] if image streaming or video recording has
-  /// already started.
+  /// Throws a [CameraException] if image streaming has already started.
   ///
   /// The `startImageStream` method is only available on Android and iOS (other
   /// platforms won't be supported in current setup).
@@ -418,12 +417,6 @@ class CameraController extends ValueNotifier<CameraValue> {
     assert(defaultTargetPlatform == TargetPlatform.android ||
         defaultTargetPlatform == TargetPlatform.iOS);
     _throwIfNotInitialized('startImageStream');
-    if (value.isRecordingVideo) {
-      throw CameraException(
-        'A video recording is already started.',
-        'startImageStream was called while a video is being recorded.',
-      );
-    }
     if (value.isStreamingImages) {
       throw CameraException(
         'A camera has started streaming images.',
